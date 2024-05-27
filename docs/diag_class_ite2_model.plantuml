@@ -1,0 +1,97 @@
+@startuml
+abstract class Artefact
+class Mushroom
+class Player
+class Wall
+class Box
+class Goal
+class Ground
+
+abstract class Board
+class Board4Design
+class Board4Play
+abstract class Grid
+class Grid4Design
+class Grid4Play
+abstract class Cell
+class Cell4Design
+class Cell4Play
+
+class BoardData
+class FileHandler
+
+interface Command
+class MoveMushroomCommand
+class MovePLayerCommand
+class ExchangePosBoxCommand
+
+class Backup
+
+Artefact <|-- Mushroom
+Artefact <|-- Player
+Artefact <|-- Wall
+Artefact <|-- Box
+Artefact <|-- Goal
+Artefact <|-- Ground
+
+Board <|-- Board4Design
+Board <|-- Board4Play
+Grid <|-- Grid4Design
+Grid <|-- Grid4Play
+Cell <|-- Cell4Design
+Cell <|-- Cell4Play
+
+Command <|-- MoveMushroomCommand
+Command <|-- MovePLayerCommand
+Command <|-- ExchangePosBoxCommand
+
+Artefact : create()
+
+Board : allConditionsMetProperty()
+Board : {abstract} updateCellSet()
+Board4Design : open()
+Board4Design : haveChangedProperty()
+Board4Play : restoreState()
+Board4Play : nbMovesProperty()
+Board4Play : updateGridFromBackup()
+Board4Play : undo()
+Board4Play : redo()
+Board4Play : exchangePosBox()
+
+Grid : {abstract} containPlayerProperty()
+Grid : {abstract} isGround()
+Grid : setDimensions()
+Grid4Design : countElemInGrid()
+Grid4Design : removePlayer()
+Grid4Design : removeAllArtefact()
+Grid4Design : artefactsToChar()
+Grid4Design : isPossible()
+Grid4Play :  getPosMush()
+Grid4Play : isValidMove()
+Grid4Play : tryMovePlayer()
+Grid4Play : showMushPos()
+Grid4Play : determOfMushPos()
+
+Cell : removePlayer()
+Cell : readCell()
+Cell : addArtefact()
+Cell : addArtefactFromChar()
+Cell4Design : removeLastArtefact()
+Cell4Play : addMushroom()
+
+BoardData : readBoardFromFile()
+BoardData : loadLevel()
+FileHandler : save()
+
+Command : {abstract} execute()
+Command : {abstract} undo()
+
+Board4Design "1" -- "1" FileHandler
+Artefact "1" -- "1...3" Cell
+Grid "*" -- "1" Cell
+Board "1" -- "1" Grid
+Board4Play "1" -- "*" Command
+Backup "1" -- "1" ExchangePosBoxCommand
+Backup "1" -- "1" MovePLayerCommand
+
+@enduml

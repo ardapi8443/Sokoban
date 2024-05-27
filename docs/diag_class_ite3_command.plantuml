@@ -1,0 +1,31 @@
+@startuml
+abstract class Command{}
+Command : GridViewModel4Play gridViewModel4Play
+Command : String backup
+Command : execute()
+Command : undo()
+
+class CommandHistory{}
+CommandHistory : List<Command> history
+CommandHistory :  int iterator
+CommandHistory : push()
+CommandHistory : getLast()
+CommandHistory : getNext()
+CommandHistory : incrementIterator()
+CommandHistory : isEmpty()
+CommandHistory : getHistory()
+
+class CommandMoveDOWN{}
+class CommandMoveLEFT{}
+class CommandMoveRIGHT{}
+class CommandMoveUP{}
+
+
+Command <|-- CommandMoveDOWN
+Command <|-- CommandMoveLEFT
+Command <|-- CommandMoveRIGHT
+Command <|-- CommandMoveUP
+
+CommandHistory "1" *-- "many" Command : contains
+
+@enduml

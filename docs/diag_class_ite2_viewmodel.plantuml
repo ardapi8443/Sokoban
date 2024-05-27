@@ -1,0 +1,56 @@
+@startuml
+class ArtefactViewModel
+abstract class BoardViewModel
+class BoardViewModel4Design
+class BoardViewModel4Play
+abstract class GridViewModel
+class GridViewModel4Design
+class GridViewModel4Play
+abstract class CellViewModel
+class CellViewModel4Design
+class CellViewModel4Play
+
+
+BoardViewModel <|-- BoardViewModel4Design
+BoardViewModel <|-- BoardViewModel4Play
+GridViewModel <|-- GridViewModel4Design
+GridViewModel <|-- GridViewModel4Play
+CellViewModel <|-- CellViewModel4Design
+CellViewModel <|-- CellViewModel4Play
+
+BoardViewModel : Board board
+BoardViewModel : {abstract} getWithProperty()
+BoardViewModel : {abstract} getHeightProperty()
+BoardViewModel : {abstract} loadLevelFromString()
+
+BoardViewModel4Design : loadLevel()
+BoardViewModel4Design : loadLevelFromString()
+BoardViewModel4Design : nnew()
+BoardViewModel4Design : saveGrid()
+
+BoardViewModel4Play : initMushroomPos()
+BoardViewModel4Play : hideMushroom()
+
+GridViewModel : Board board
+
+GridViewModel4Design : configBindings()
+GridViewModel4Design : isPossible()
+GridViewModel4Design : playPosComputer()
+GridViewModel4Play : undo()
+GridViewModel4Play : redo()
+GridViewModel4Play : movePlayer()
+GridViewModel4Play : configBindings()()
+
+CellViewModel  : Board board
+
+CellViewModel4Design : updateCellSet()
+CellViewModel4Design : readyToPlayProperty()
+CellViewModel4Play : isBox()
+CellViewModel4Play : checkIfMushroom()
+CellViewModel4Play : exchangePosBox()
+
+BoardViewModel "1" -- "*" GridViewModel
+GridViewModel "1"-- "*" CellViewModel
+CellViewModel "1" -- "1...3" ArtefactViewModel
+
+@enduml

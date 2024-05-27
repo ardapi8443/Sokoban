@@ -1,0 +1,60 @@
+@startuml
+
+class ArtefactView
+abstract class BoardView
+class BoardView4Design
+class BoardView4Play
+abstract class GridView
+class GridView4Design
+class GridView4Play
+abstract class CellView
+class CellView4Design
+class CellView4Play
+class NewDialog
+
+BorderPane <|-- BoardView
+GridPane <|-- GridView
+StackPane <|-- CellView
+VBox <|-- ArtefactView
+BoardView <|-- BoardView4Design
+BoardView <|-- BoardView4Play
+CellView <|-- CellView4Design
+CellView <|-- CellView4Play
+GridView <|-- GridView4Design
+GridView <|-- GridView4Play
+NewDialog <|-- Dialog
+
+
+BoardView : BoardViewModel viewModel
+BoardView : start()
+BoardView : {abstract} createGrid()
+BoardView : {abstract} createHeader()
+BoardView : {abstract} configureBindings()
+BoardView : {abstract} layoutControls()
+
+BoardView4Design : createPlayZone()
+BoardView4Design : newAction()
+BoardView4Design : createMenu()
+BoardView4Play : createDesignZone()
+
+GridView : BoardViewModel viewModel
+GridView : {abstract} updateGrid()
+GridView4Play : configureKeyEvents()
+
+CellView : BoardViewModel viewModel
+CellView : {abstract} layoutControls()
+CellView : {abstract} configureBindings()
+CellView : {abstract} updateImages()
+CellView : {abstract} mouseActions()
+
+NewDialog : buildUI()
+NewDialog : setPropertyBindings()
+NewDialog : buildErrorMessages()
+
+GridView "1" -- "*" CellView
+BoardView "1"-- "1" GridView
+CellView "1" -- "1...3" ArtefactView
+BoardView4Design "1" -- "1" NewDialog
+
+
+@enduml

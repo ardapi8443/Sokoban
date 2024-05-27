@@ -1,0 +1,32 @@
+@startuml
+participant GridView4Play as view
+entity KeyboardKey as keyboard
+entity GridViewModel4Play as viewModel
+entity Board4Play as board
+entity Command as command
+entity LinkedListUndo as undo
+entity LinkedListRedo as redo
+entity Grid4Play as grid
+entity Cell4Play as cell
+view -> keyboard : 1 switch
+keyboard -> viewModel : 2  move(direction)
+keyboard -> viewModel : 11 undo() / redo()
+viewModel -> board : 3 MovePlayer()
+viewModel -> board : 12 undo() / redo()
+board -> command : 4 new Command()
+board -> grid : 5 MovePlayer()
+board -> command : 13 execute()
+board -> command : 13bis undo()
+note over command, redo #FFAAAA: Undo ajoute la command dans Redo et consomme la command.
+note over command, redo #FFAAAA: Redo ajoute la command dans Undo et consomme la command.
+command -> undo : 14 undo.pop()
+command -> redo : 14bis redo.push()
+redo -> grid : 15bis MovePlayer()
+undo -> grid : 15 backup(save())
+grid -> cell : 6 / 16 updateSet()
+cell -> grid : 7 / 17 ok
+grid -> board : 8 / 18 ok
+board -> viewModel : 9 / 19 ok
+viewModel -x view : 10 / 20 ok
+
+@enduml1

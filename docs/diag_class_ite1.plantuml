@@ -1,0 +1,75 @@
+@startuml
+abstract class Artefact {
+
+}
+
+class Box {}
+class Player{}
+class Wall{}
+class Goal{}
+class Ground{}
+
+
+Board "1" -- "1" Grid : possède >
+Board : + saveGrid() type
+Board : + static open() board
+Grid : + validate() errors
+Grid : + maxFieldCell()
+
+
+Grid "1"-- "1.." Cell : possède >
+
+Cell "1"-- "1..3" Artefact : possède >
+
+Cell : - Set<Artefact>
+Cell : + setBehavior()
+
+Note top of Cell : set \n terrain et mur \n terrain et (joueur ou cible ou caisse) \n terrain et (joueur ou caisse) et cible.
+
+Artefact  <|-- Box
+Artefact   <|-- Player
+Artefact   <|-- Wall
+Artefact   <|-- Ground
+Artefact   <|-- Goal
+
+@enduml
+@startuml
+abstract class Artefact {
+
+}
+
+class Box {}
+class Player{}
+class Wall{}
+class Goal{}
+class Ground{}
+class Grid{
+ + MAX_WITH
+ + MIN_WITH
+}
+
+
+Board "1" -- "1" Grid : possède >
+Board : + saveGrid() type
+Board : + static open() board
+Grid : + validate() errors
+Grid : + maxFieldCell()
+
+
+Grid "1"-- "1.." Cell : possède >
+
+Cell "1"-- "1..3" Artefact : possède >
+
+Cell : - Set<Artefact>
+Cell : + setBehavior()
+
+Note top of Cell : set \n terrain et mur \n terrain et (joueur ou cible ou caisse) \n terrain et (joueur ou caisse) et cible.
+
+Artefact  : abstract String()
+Artefact  <|-- Box
+Artefact   <|-- Player
+Artefact   <|-- Wall
+Artefact   <|-- Ground
+Artefact   <|-- Goal
+
+@enduml

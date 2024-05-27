@@ -1,0 +1,48 @@
+@startuml
+
+package "model" {
+    Interface Command
+    class MovePlayerCommand
+    class Board4Play
+    class Backup
+}
+
+package "viewModel" {
+    class GridViewModel4Play
+}
+
+package "view" {
+    class GridView4Play
+}
+
+Command : ~ execute()
+Command : ~ undo()
+
+Note right of Command : execute utilise comme redo \n dans MovePlayerCommand
+
+Board4Play : - final undo: LinkedList<Command>
+Board4Play : - final redo: LinkedList<Command>
+Board4Play : + movePlayer()
+Board4Play : + restoreState(Backup)
+Board4Play : + undo()
+Board4Play : + redo()
+
+Backup : + Backup(String)
+Backup : + getState()
+
+GridViewModel4Play : + undo()
+GridViewModel4Play : + redo()
+GridViewModel4Play : + movePlayer(TextInputControlSkin.Direction)
+
+GridView4Play : - configureKeyEvents(GridViewModel4Play)
+
+MovePlayerCommand : + MovePlayerCommand(Board4Play, TextInputControlSkin.Direction))
+MovePlayerCommand : + execute()
+
+Command <|-- MovePlayerCommand
+MovePlayerCommand <-- Board4Play
+Board4Play <-- GridViewModel4Play
+GridViewModel4Play <-- GridView4Play
+
+
+@enduml
