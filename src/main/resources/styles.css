@@ -1,0 +1,27 @@
+.scale-button {
+    -fx-min-width: 15px;
+    -fx-min-height: 15px;
+    -fx-max-width: 15px;
+    -fx-max-height: 15px;
+    -fx-padding: 0px;
+    -fx-font-size: 8;
+    -fx-font-family: -moz-fixed;
+    -fx-font-weight: bold;
+    -fx-focus-traversable: false
+}
+
+.header {
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+}
+
+.selected {
+    -fx-border-color: blue;
+    -fx-border-width: 2px;
+}
+
+.errors {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
