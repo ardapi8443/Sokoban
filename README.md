@@ -1,7 +1,7 @@
 # Sokoban
 
 Sokoban game with level editor  
-Project realized on java 17 with openjfx by:  
+Project realized on java 17 with openjfx and Maven by:  
 - Delplanque Arnaud
 - Dramaix Pierre
 - Van Rossen David
